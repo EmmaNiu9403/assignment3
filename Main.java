@@ -1,8 +1,8 @@
 /* WORD LADDER Main.java
  * EE422C Project 3 submission by
  * Replace <...> with your actual data.
- * Kassandra Perez
- * Kap2589
+ * <Student1 Name>
+ * <Student1 EID>
  * <Student1 5-digit Unique No.>
  * <Student2 Name>
  * <Student2 EID>
@@ -38,8 +38,38 @@ public class Main {
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
 		
 		// TODO some code
+    	LinkedList <WordNode> quene = new LinkedList <WordNode>();
+    	ArrayList <String> WordLadder=new ArrayList <String>();
 		Set<String> dict = makeDictionary();
+		if(!dict.contains(start)) throw new IllegalArgumentException("Error: illegal Input");
+		if(!dict.contains(end)) throw new IllegalArgumentException("Error: illegal Input");
 		// TODO more code
+		quene.add(new WordNode(start));
+		WordLadder.add(start);
+		while(!quene.isEmpty()){
+			WordNode word = quene.remove();
+			word.SetFlag();
+			if(word.GetString().equals(end))
+				return WordLadder;
+			if(word.GetFlag()==true);
+			else{
+				word.SetFlag();
+				WordLadder.add(word.GetString());
+				char [] arr = word.GetString().toCharArray();
+				for(int i=0;i<arr.length;i++){
+					char temp = arr[i];
+					for(char c='a';c<='z';c++){
+						if(arr[i]!=c) arr[i]=c;
+						String newWord = new String(arr);
+						if(dict.contains(newWord)) quene.add(new WordNode(newWord));
+						
+					}
+					arr[i]=temp;
+				}
+			}
+		}
+		
+		
 		
 		return null; // replace this line later with real return
 	}
