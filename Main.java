@@ -15,6 +15,7 @@
 package assignment3;
 import java.util.*;
 import java.io.*;
+import java.lang.reflect.Array;
 
 public class Main {
 
@@ -23,6 +24,28 @@ public class Main {
 		Scanner kb = new Scanner(System.in);
 		
 		// TODO methods to read in words, output ladder
+		String start = new String();
+		String end = new String();
+		System.out.println("please enter start and end words");
+		start = kb.nextLine();
+		char [] arr = start.toCharArray();
+		char [] arr1 = new char[start.toCharArray().length];
+		char [] arr2 = new char[arr1.length];
+		int i=0;
+		while(arr[i]!=' '){
+			arr1[i]=arr[i];
+			i++;
+		}
+		i++;
+		int temp=i-1;
+		for(int j=0;j<start.toCharArray().length-temp;j++){
+			arr2[j]=arr[i];
+			i++;
+		}
+		start=arr1.toString();
+		end = arr2.toString();
+		
+		getWordLadderBFS(start, end);
 
 	}
 	
