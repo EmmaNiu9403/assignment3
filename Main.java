@@ -36,7 +36,11 @@ public class Main {
 		end = words[1];
 		}
 		ArrayList <String > ladder = getWordLadderBFS(start, end);
-		System.out.println("word ladder is: "+ladder);
+		System.out.println("word ladder is: ");
+		for(String s: ladder){
+			System.out.println(s);
+			
+		}
 		kb.close();
 
 	}
@@ -63,8 +67,10 @@ public class Main {
 		WordLadder.add(start);
 		while(!quene.isEmpty()){
 			WordNode word = quene.remove();
-			if(word.GetString().equals(end))
+			if(word.GetString().equals(end)){
+			WordLadder.add(word.GetString());
 				return WordLadder;
+				}
 			if(word.GetFlag()==true);
 			else{
 				word.SetFlag();
@@ -72,7 +78,7 @@ public class Main {
 				char [] arr = word.GetString().toCharArray();
 				for(int i=0;i<arr.length;i++){
 					char temp = arr[i];
-					for(char c='a';c<='z';c++){
+					for(char c='A';c<='Z';c++){
 						if(arr[i]!=c) arr[i]=c;
 						String newWord = new String(arr);
 						if(dict.contains(newWord)) quene.add(new WordNode(newWord));
