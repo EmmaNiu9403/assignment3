@@ -17,6 +17,8 @@ import java.util.*;
 import java.io.*;
 import java.lang.reflect.Array;
 
+
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -27,25 +29,15 @@ public class Main {
 		String start = new String();
 		String end = new String();
 		System.out.println("please enter start and end words");
-		start = kb.nextLine();
-		char [] arr = start.toCharArray();
-		char [] arr1 = new char[start.toCharArray().length];
-		char [] arr2 = new char[arr1.length];
-		int i=0;
-		while(arr[i]!=' '){
-			arr1[i]=arr[i];
-			i++;
+		String temp = kb.nextLine();
+		String [] words = temp.split(" ");
+		if(words.length == 2){
+		start = words[0];
+		end = words[1];
 		}
-		i++;
-		int temp=i-1;
-		for(int j=0;j<start.toCharArray().length-temp;j++){
-			arr2[j]=arr[i];
-			i++;
-		}
-		start=arr1.toString();
-		end = arr2.toString();
-		
-		getWordLadderBFS(start, end);
+		ArrayList <String > ladder = getWordLadderBFS(start, end);
+		System.out.println("word ladder is: "+ladder);
+		kb.close();
 
 	}
 	
@@ -71,7 +63,6 @@ public class Main {
 		WordLadder.add(start);
 		while(!quene.isEmpty()){
 			WordNode word = quene.remove();
-			word.SetFlag();
 			if(word.GetString().equals(end))
 				return WordLadder;
 			if(word.GetFlag()==true);
