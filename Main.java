@@ -3,7 +3,6 @@
  * Replace <...> with your actual data.
  * Kassandra Perez
  * Kap2589
- * <Student1 5-digit Unique No.>
  * <Student2 Name>
  * <Student2 EID>
  * <Student2 5-digit Unique No.>
@@ -20,22 +19,38 @@ public class Main {
 
 	public static void main(String[] args) 
 	{
+		System.out.println("Please enter Start and End words with a space seperating the two words (Ex. Hello Apple)");
+		System.out.println("or /quit to terminate the program");
 		Scanner kb = new Scanner(System.in);
 		String tempAnswer = kb.nextLine();
 		ArrayList<String> words = getWords(tempAnswer.trim().split(" "));
 		
-		// TODO Create a loop to keep asking for words
-		// TODO Create a method that checks if the word is a command and if its a valid command
+		while(!(words.get(0).equals("/quit")))
+		{
+			if(words.size() == 1 && !isCommand(words.get(0)))
+			{
+				System.out.println("Invalid Command: " + words.get(0));
+			}
+			else
+			{
+				ArrayList<String> wordLadder1 = getWordLadderBFS(words.get(0).toUpperCase(), words.get(1).toUpperCase());
+//				ArrayList<String> wordLadder1 = getWordLadderDFS(words.get(0).toUpperCase(),words.get(1).toUpperCase()); 
+				
+				printWordLadder(words.get(0).toUpperCase(), words.get(1).toUpperCase(),wordLadder1);
+			}
+				System.out.println("Please enter Start and End words with a space seperating the two words (Ex. Hello Apple)");
+				System.out.println("or /quit to terminate the program");
+				kb = new Scanner(System.in);
+				tempAnswer = kb.nextLine();
+				words = getWords(tempAnswer.trim().split(" "));
+		}
 		
-		ArrayList<String> wordLadder1 = getWordLadderBFS(words.get(0).toUpperCase(), words.get(1).toUpperCase());
-//		ArrayList<String> wordLadder1 = getWordLadderDFS(words.get(0).toUpperCase(),words.get(1).toUpperCase()); 
-		
-		printWordLadder(words.get(0).toUpperCase(), words.get(1).toUpperCase(),wordLadder1);
-		
+		System.out.println("Program terminated");
 		kb.close();
 	}
 	
 	/**
+	 * 
 	 * @param start
 	 * @param end
 	 * @return
@@ -54,14 +69,24 @@ public class Main {
 			
 			return wordLadder;
 		}
-		// TODO ask if i should have the error handling here or in main
 		return null; 
 		
 	}
 	
+	/**
+	 * 
+	 * @param start
+	 * @param end
+	 * @return
+	 */
     public static ArrayList<String> getWordLadderBFS(String start, String end)
     {
     	Set<String> dict = makeDictionary();
+    	if(!dict.contains(start) || !dict.contains(end))
+    	{
+    		return null;
+    	}
+    	
     	ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 
     	LinkedList<WordNode> queue = new LinkedList<WordNode>();
@@ -141,12 +166,16 @@ public class Main {
     		return null;
     }
 
+    /**
+     * Creates a dictionary using the txt file five_letter_words.txt
+     * @return dict - a HashSet of strings
+     */
 	public static Set<String> makeDictionary ()
 	{
 		Set<String> words = new HashSet<String>();
 		Scanner infile = null;
 		try {
-			//infile = new Scanner (new File("short_dict.txt"));
+//			infile = new Scanner (new File("short_dict.txt"));
 			infile = new Scanner (new File("five_letter_words.txt"));
 		} catch (FileNotFoundException e) {
 			System.out.println("Dictionary File not Found!");
@@ -159,6 +188,11 @@ public class Main {
 		return words;
 	}
 	
+	/**
+	 * 
+	 * @param words
+	 * @return
+	 */
 	public static ArrayList<String> getWords(String[] words)
 	{
 		ArrayList<String> newWord = new ArrayList<String>();
@@ -172,11 +206,17 @@ public class Main {
 		return newWord;
 	}
 	
+	/**
+	 * Prints a given wordLadder
+	 * @param start - a string of where the wordLadder starts at
+	 * @param end - a string of where the wordLadder ends at
+	 * @param wordLadder - the wordLadder, can be null if there was no wordLadder found
+	 */
 	public static void printWordLadder(String start, String end, ArrayList<String> wordLadder)
 	{
 		if(wordLadder ==  null)
 		{
-			System.out.println("No word ladder found!");
+			System.out.println("No word ladder can be found between " + start + " and " + end);
 		}
 		else
 		{
@@ -190,4 +230,14 @@ public class Main {
 		
 	}
 	
+	/**
+	 * 
+	 * @param word - a String to test weather 
+	 * @return  True - if the word is a command
+	 * 			False - if the word is not a command
+	 */
+	public static boolean isCommand(String word)
+	{
+		return word.equals("/quit");
+	}
 }
