@@ -3,11 +3,10 @@
  * Replace <...> with your actual data.
  * Kassandra Perez
  * Kap2589
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
+ * Haoran Niu
+ * hn4582
  * Slip days used: <0>
- * Fall 2015
+ * Summer 2016
  */
 
 
