@@ -3,10 +3,11 @@
  * Replace <...> with your actual data.
  * Kassandra Perez
  * Kap2589
- * Haoran Niu
- * hn4582
+ * <Student2 Name>
+ * <Student2 EID>
+ * <Student2 5-digit Unique No.>
  * Slip days used: <0>
- * Summer 2016
+ * Fall 2015
  */
 
 
@@ -32,8 +33,8 @@ public class Main {
 			}
 			else
 			{
-				ArrayList<String> wordLadder1 = getWordLadderBFS(words.get(0).toUpperCase(), words.get(1).toUpperCase());
-//				ArrayList<String> wordLadder1 = getWordLadderDFS(words.get(0).toUpperCase(),words.get(1).toUpperCase()); 
+//				ArrayList<String> wordLadder1 = getWordLadderBFS(words.get(0).toUpperCase(), words.get(1).toUpperCase());
+				ArrayList<String> wordLadder1 = getWordLadderDFS(words.get(0).toUpperCase(),words.get(1).toUpperCase()); 
 				
 				printWordLadder(words.get(0).toUpperCase(), words.get(1).toUpperCase(),wordLadder1);
 			}
@@ -56,8 +57,12 @@ public class Main {
 	 */
 	public static ArrayList<String> getWordLadderDFS(String start, String end) 
 	{
+		if(start == null || end == null) return null;
 		
 		Set<String> dict = makeDictionary(); 
+		
+		start = start.toUpperCase();
+		end = end.toUpperCase();
 		
 		if(dict.contains(start) && dict.contains(end))
 		{
@@ -80,6 +85,10 @@ public class Main {
 	 */
     public static ArrayList<String> getWordLadderBFS(String start, String end)
     {
+    	if(start == null || end == null) return null;
+    	start = start.toUpperCase();
+    	end = end.toUpperCase();
+    	
     	Set<String> dict = makeDictionary();
     	if(!dict.contains(start) || !dict.contains(end))
     	{
