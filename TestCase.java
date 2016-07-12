@@ -11,9 +11,6 @@ public class TestCase
 
 	//*************************** No Duplicates in Word Ladder Test *******************************//
 
-	
-	// NEED TO USE THE LARGE DICTIONARY FOR THESE TEST CASES
-	// ---- Go to the makeDictionary method in Main and change which file is being read in
 	@Test
 	public void testDuplicatesBFS() 
 	{
@@ -112,7 +109,7 @@ public class TestCase
 				System.out.println("failed test cases");
 		}
 		
-		kb.close();
+		//kb.close();
 	}
 	
 	@Test
@@ -142,7 +139,7 @@ public class TestCase
 			if(compareLetterPos(test.get(i),test.get(i+1))==compareLetterPos(test.get(i+1),test.get(i+2))) 
 				System.out.println("failed test cases");
 		}
-		kb.close();
+		//kb.close();
 	}
 	
 	@Test

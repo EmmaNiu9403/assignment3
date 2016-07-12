@@ -13,6 +13,14 @@ public class DFS
 		this.wordLadder = wordLadder;
 	}
 	
+	/**
+	 * creates the word Ladder using DFS
+	 * @param end - goal for the word ladder
+	 * @param dict - Set of strings that contains the given dictionary for the word ladder
+	 * @param pos - the position that was last changed
+	 * @return  word ladder between start and end word
+	 * 			null - if no word ladder is found
+	 */
 	public ArrayList<String> createWordLadder(String end, Set<String> dict, int pos)
 	{	
 		String lastWord = wordLadder.get(wordLadder.size()-1);
@@ -22,6 +30,8 @@ public class DFS
 		}
 		
 		int changedLetter = -1;
+		
+		// goes through the goal word first and finds any words that can make a path to it
 		for(int i = 0; i < lastWord.length(); i++)
 		{
 			char[] tempStr = lastWord.toCharArray();
@@ -42,6 +52,8 @@ public class DFS
 				}
 			}
 		}
+		
+		// goes through all other possible words
 		for(int i = 0; i < lastWord.length() ;i++)
 		{
 			char[] tempStr = lastWord.toCharArray();

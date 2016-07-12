@@ -23,8 +23,10 @@ public class Main {
 		System.out.println("or /quit to terminate the program");
 		Scanner kb = new Scanner(System.in);
 		String tempAnswer = kb.nextLine();
-		ArrayList<String> words = getWords(tempAnswer.trim().split(" "));
-		
+		String[] tempStArr = tempAnswer.trim().split(" ");
+		tempStArr = tempAnswer.trim().split(" ");
+		ArrayList<String> words = getWords(tempStArr);
+
 		while(!(words.get(0).equals("/quit")))
 		{
 			if(words.size() == 1 && !isCommand(words.get(0)))
@@ -42,7 +44,8 @@ public class Main {
 				System.out.println("or /quit to terminate the program");
 				kb = new Scanner(System.in);
 				tempAnswer = kb.nextLine();
-				words = getWords(tempAnswer.trim().split(" "));
+				tempStArr = tempAnswer.trim().split(" ");
+				words = getWords(tempStArr);
 		}
 		
 		System.out.println("Program terminated");
@@ -50,10 +53,11 @@ public class Main {
 	}
 	
 	/**
-	 * 
-	 * @param start
-	 * @param end
-	 * @return
+	 * DFS method for finding a word ladder
+	 * @param start -- starting word for the word ladder
+	 * @param end - goal for the word ladder
+	 * @return  word ladder between start and end word
+	 * 			null - if no word ladder is found
 	 */
 	public static ArrayList<String> getWordLadderDFS(String start, String end) 
 	{
@@ -63,12 +67,16 @@ public class Main {
 		
 		start = start.toUpperCase();
 		end = end.toUpperCase();
-		
+	
 		if(dict.contains(start) && dict.contains(end))
 		{
+			if(start.equals(end))
+			{
+				return null;
+			}
 			ArrayList<String> wordLadder = new ArrayList<String>();
 			wordLadder.add(start);
-			DFS dfs = new DFS(wordLadder);
+			DFS dfs = new DFS(wordLadder,start);
 			wordLadder = dfs.createWordLadder(end, dict, -1);
 			
 			return wordLadder;
@@ -78,16 +86,20 @@ public class Main {
 	}
 	
 	/**
-	 * 
-	 * @param start
-	 * @param end
-	 * @return
+	 *  BFS method
+	 * @param start - starting word for the word ladder
+	 * @param end - goal for the word ladder
+	 * @return  word ladder between start and end word
+	 * 			null - if no word ladder is found	
 	 */
     public static ArrayList<String> getWordLadderBFS(String start, String end)
     {
     	if(start == null || end == null) return null;
+    	
     	start = start.toUpperCase();
     	end = end.toUpperCase();
+    	
+    	if(start.equals(end)) return null;
     	
     	Set<String> dict = makeDictionary();
     	if(!dict.contains(start) || !dict.contains(end))
@@ -157,9 +169,10 @@ public class Main {
     				arr[i] = temp;
     			}
     		}
-
     	}
-    	ArrayList<String> temp = new ArrayList<String>();
+    	
+    	//Select the shortest word ladder 
+      	ArrayList<String> temp = new ArrayList<String>();
     	int min = 0;
     	for (int i = 0; i < result.size(); i++) {
     		if (result.get(i).size() < result.get(min).size()) {
@@ -197,9 +210,9 @@ public class Main {
 	}
 	
 	/**
-	 * 
-	 * @param words
-	 * @return
+	 * converts a string into an arrayList of strings
+	 * @param words - array of strings
+	 * @return an arrayList of strings
 	 */
 	public static ArrayList<String> getWords(String[] words)
 	{
